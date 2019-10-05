@@ -28,8 +28,8 @@ public class Main {
 	public static final double DEFAULT_INPUT = 4;
 	
 	public static void main(String[] args) {
-		MOSFET pmos = new PMOS(-1.5, new BigDecimal(BigInteger.TWO, 8), new BigDecimal(BigInteger.TWO, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
-		MOSFET nmos = new NMOS(1.5, new BigDecimal(BigInteger.TWO, 8), new BigDecimal(BigInteger.TWO, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
+		MOSFET pmos = new PMOS(-1.5, new BigDecimal(BigInteger.ONE, 8), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
+		MOSFET nmos = new NMOS(1.5, new BigDecimal(BigInteger.ONE, 8), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
 		CMOS cmos = new CMOS(nmos, pmos);
 		
 		JFrame j = new JFrame();
