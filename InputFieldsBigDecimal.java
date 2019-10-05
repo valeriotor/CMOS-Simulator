@@ -42,19 +42,16 @@ public class InputFieldsBigDecimal extends JComponent{
 	}
 	
 	void performAction() {
-		//try {
+		try {
 			double val = Double.parseDouble(this.unscaledValField.getText());
 			int scale = Integer.parseInt(this.scaleField.getText());
-			//if(scale < -8 ) scale  = -8;
-			//if(scale > -5) scale = -5;
 			BigDecimal sent = BigDecimal.valueOf(val).scaleByPowerOfTen(scale);
 			BigDecimal received = this.operator.apply(sent);
 			this.setText(received);
 			cmos.calculateSwitchTreshold();
 			cmos.updateLabels();
 			for(JComponent comp : comps) comp.repaint();
-			
-		//} catch(Exception e) {}
+		} catch(Exception e) {}
 	}
 	
 	void setText(BigDecimal bd) {
