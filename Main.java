@@ -32,7 +32,7 @@ public class Main {
 		MOSFET nmos = new NMOS(1.5, new BigDecimal(BigInteger.ONE, 8), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
 		CMOS cmos = new CMOS(nmos, pmos);
 		
-		JFrame j = new JFrame();
+		JFrame j = new JFrame("CMOS Simulator");
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		j.setBounds(0, 0, 1920, 1080);
 		
