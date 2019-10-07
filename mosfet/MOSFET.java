@@ -73,4 +73,6 @@ public abstract class MOSFET {
 		return this.mobility;
 	}
 	
+	public abstract double setTresholdVoltage(double vt);
+	
 }

@@ -26,10 +26,12 @@ public class Main {
 	public static final int GRAPH_SIZE = 400;
 	public static final double DEFAULT_SUPPLY = 10;
 	public static final double DEFAULT_INPUT = 4;
+	public static final double DEFAULT_NTRESHOLD = 0.5;
+	public static final double DEFAULT_PTRESHOLD= -0.5;
 	
 	public static void main(String[] args) {
-		MOSFET pmos = new PMOS(-1.5, new BigDecimal(BigInteger.ONE, 8), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
-		MOSFET nmos = new NMOS(1.5, new BigDecimal(BigInteger.ONE, 8), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
+		MOSFET pmos = new PMOS(DEFAULT_PTRESHOLD, new BigDecimal(BigInteger.ONE, 8), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
+		MOSFET nmos = new NMOS(DEFAULT_NTRESHOLD, new BigDecimal(BigInteger.ONE, 8), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.ONE, 6), new BigDecimal(BigInteger.valueOf(1), 1));
 		CMOS cmos = new CMOS(nmos, pmos);
 		
 		JFrame j = new JFrame("CMOS Simulator");
@@ -45,18 +47,16 @@ public class Main {
 		JSeparator separateCenter = new JSeparator(JSeparator.VERTICAL);
 		separateCenter.setPreferredSize(new Dimension(1, 200));
 		
-		//centralPanel.add(separateCenter, BorderLayout.EAST);
 		JComponent miniCentralPanel = new JPanel();
 		miniCentralPanel.setPreferredSize(new Dimension(3, 1080));
-		//centralPanel.add(miniCentralPanel);
 		centralPanel.add(graphCompOutput);
 		centralPanel.add(graphCompCurrent);
 		centralPanel.setBackground(Color.WHITE);
 
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new BorderLayout());
-		//leftPanel.setPreferredSize(new Dimension(450, 600));
 		JPanel leftTopPanel = new JPanel();
+		JPanel leftSecondToTopPanel = new JPanel();
 		
 		JLabel vIn = new JLabel("V IN:");
 		JLabel vDD = new JLabel("V DD:");
@@ -71,7 +71,19 @@ public class Main {
 		leftTopPanel.add(vDD);
 		leftTopPanel.add(supplyVoltageListener);
 		
-		leftPanel.add(leftTopPanel, BorderLayout.NORTH);
+		JLabel vtn = new JLabel("V Tn:");
+		JLabel vtp = new JLabel("V Tp:");
+		
+		InputFieldDouble tresholdNMOSListener = new InputFieldDouble(10, 10, 20, 20, nmos::setTresholdVoltage, graphComps);
+		InputFieldDouble tresholdPMOSListener = new InputFieldDouble(10, 10, 20, 20, pmos::setTresholdVoltage, graphComps);
+		tresholdNMOSListener.setText(Double.toString(DEFAULT_NTRESHOLD));
+		tresholdPMOSListener.setText(Double.toString(DEFAULT_PTRESHOLD));
+		
+		leftSecondToTopPanel.add(vtn);
+		leftSecondToTopPanel.add(tresholdNMOSListener);
+		leftSecondToTopPanel.add(vtp);
+		leftSecondToTopPanel.add(tresholdPMOSListener);
+		
 		
 		JPanel leftCenterPanel = new JPanel();
 		leftCenterPanel.setPreferredSize(new Dimension(500, 800));
@@ -87,6 +99,8 @@ public class Main {
 		InputFieldsBigDecimal pmosTox 			= new InputFieldsBigDecimal(cmos, pmos::setOxideWidth, 	"PMOS TOX:          ", "m            ", pmos.tox, graphComps);
 		InputFieldsBigDecimal pmosMobility	 	= new InputFieldsBigDecimal(cmos, pmos::setMobility, 	"PMOS MOBILITY: ", "m^2/(V*s)", pmos.mobility, graphComps);
 		
+		leftTopPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		leftSecondToTopPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		nmosWidth.setAlignmentX(Component.LEFT_ALIGNMENT);
 		nmosLength.setAlignmentX(Component.LEFT_ALIGNMENT);
 		nmosTox.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -100,7 +114,8 @@ public class Main {
 		JSeparator centerSeparator = new JSeparator(JSeparator.HORIZONTAL);
 		JSeparator bottomSeparator = new JSeparator(JSeparator.HORIZONTAL);
 		
-		leftCenterPanel.add(new JLabel(" "));
+		leftCenterPanel.add(leftTopPanel);
+		leftCenterPanel.add(leftSecondToTopPanel);
 		leftCenterPanel.add(topSeparator);
 		leftCenterPanel.add(nmosWidth);
 		leftCenterPanel.add(nmosLength);

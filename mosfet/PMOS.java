@@ -20,6 +20,13 @@ public class PMOS extends MOSFET{
 	public boolean isSaturated(double vD) {
 		return vD < vG - vT;
 	}
+
+	@Override
+	public double setTresholdVoltage(double vt) {
+		if(vt > 0) vt = -vt;
+		this.vT = vt;
+		return vt;
+	}
 	
 	
 }
