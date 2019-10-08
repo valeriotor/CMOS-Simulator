@@ -47,6 +47,8 @@ public class CMOS {
 			args[i] = String.format("%.2e", ((double)maxI)/5 * (i+1));
 		graph.drawYMarkers(graphics, args);
 		graph.drawAxisNames(graphics, "V OUT", "CURRENT");
+		double vOut = getOutputVoltageOverSupply(vIn);
+		graph.drawDashedLine(graphics,(int) (graph.xSize * vOut), (int) (getNMOSAxisCurrent(vOut * vDD) * graph.ySize));
 	}
 	
 	public void drawOutputVoltage(Graph graph, Graphics graphics) {
