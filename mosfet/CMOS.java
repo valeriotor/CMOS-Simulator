@@ -118,6 +118,22 @@ public class CMOS {
 		return 0;
 	}
 	
+	public double setNMOSTreshold(double vt) {
+		double returnValue = nmos.setTresholdVoltage(vt);
+		this.calculateMaxCurrent();
+		this.calculateSwitchTreshold();
+		this.updateLabels();
+		return returnValue;
+	}
+	
+	public double setPMOSTreshold(double vt) {
+		double returnValue = pmos.setTresholdVoltage(vt);
+		this.calculateMaxCurrent();
+		this.calculateSwitchTreshold();
+		this.updateLabels();
+		return returnValue;
+	}
+	
 	public void updateLabels() {
 		double vOut = this.getOutputVoltageOverSupply(vIn)*vDD;
 		if(this.vOutLabel != null) this.vOutLabel.setText(String.format("V OUT: %6.3fV    ", vOut));

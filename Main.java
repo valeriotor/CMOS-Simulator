@@ -74,8 +74,8 @@ public class Main {
 		JLabel vtn = new JLabel("V Tn:");
 		JLabel vtp = new JLabel("V Tp:");
 		
-		InputFieldDouble tresholdNMOSListener = new InputFieldDouble(10, 10, 20, 20, nmos::setTresholdVoltage, graphComps);
-		InputFieldDouble tresholdPMOSListener = new InputFieldDouble(10, 10, 20, 20, pmos::setTresholdVoltage, graphComps);
+		InputFieldDouble tresholdNMOSListener = new InputFieldDouble(10, 10, 20, 20, cmos::setNMOSTreshold, graphComps);
+		InputFieldDouble tresholdPMOSListener = new InputFieldDouble(10, 10, 20, 20, cmos::setPMOSTreshold, graphComps);
 		tresholdNMOSListener.setText(Double.toString(DEFAULT_NTRESHOLD));
 		tresholdPMOSListener.setText(Double.toString(DEFAULT_PTRESHOLD));
 		
